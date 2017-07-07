@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/webjars/jTable/themes/metro/lightgray/jtable.min.css"
+  rel="stylesheet" type="text/css"></link>
+<link href="/webjars/jquery-ui/jquery-ui.min.css" rel="stylesheet"
+  type="text/css"></link>
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-ui/jquery-ui.min.js"></script>
+<script src="/webjars/jTable/jquery.jtable.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Spring MVC Customer App</h1>
+      <p>Built with Spring Boot (via Maven), H2 embedded database, a
+        jTable/jQuery AJAX table for performing CRUD operations.</p>
+    </div>
+    <div id="tableContainer" class="table"></div>
+  </div>
+  <script type="text/javascript">
+			$(document).ready(
+					function() {
+						$('#tableContainer').jtable(
+								{
+									columnResizable : false,
+									columnSelectable : false,
+									title : 'Customers',
+									actions : {
+										listAction : '/list',
+										createAction : '/new',
+										updateAction : '/update',
+										deleteAction : '/delete'
+									},
+									fields : {
+										id : {
+											key : true,
+											list : false
+										},
+										name : {
+											title : 'Name'
+										},
+										email : {
+											title : 'Email'
+										},
+										phone : {
+											title : 'Phone'
+										},
+										street : {
+											title : 'Street Address',
+											list : false
+										},
+										city : {
+											title : 'City',
+											list : false
+										},
+										state : {
+											title : 'State',
+											list : false,
+											options : [ 'AL', 'AK', 'AZ', 'AR',
+													'CA', 'CO', 'CT', 'DE',
+													'FL', 'GA', 'HI', 'ID',
+													'IL', 'IN', 'IA', 'KS',
+													'KY', 'LA', 'ME', 'MD',
+													'MA', 'MI', 'MN', 'MS',
+													'MO', 'MT', 'NE', 'NV',
+													'NH', 'NJ', 'NM', 'NY',
+													'NC', 'ND', 'OH', 'OK',
+													'OR', 'PA', 'RI', 'SC',
+													'SD', 'TN', 'TX', 'UT',
+													'VT', 'VA', 'WA', 'WV',
+													'WI', 'WY' ],
+											optionsSorting : 'text'
+										},
+										zip : {
+											title : 'Zip',
+											list : false
+										},
+										address : {
+											title : 'Address',
+											edit : false,
+											create : false,
+											list : true,
+											display : function(data) {
+												return data.record.street
+														+ '<br/>'
+														+ data.record.city
+														+ ',&nbsp;'
+														+ data.record.state
+														+ '&nbsp;'
+														+ data.record.zip;
+											}
+										}
+									}
+								});
+						$('#tableContainer').jtable('load');
+					});
+		</script>
+</body>
+</html>
